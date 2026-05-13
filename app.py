@@ -2,6 +2,29 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+# --- HEADER & IDENTITAS ---
+# Membuat dua kolom untuk Logo dan Judul
+col1, col2 = st.columns([1, 5])
+
+with col1:
+    # Mengambil file logo yang ada di folder yang sama
+    try:
+        st.image("logo_universitas_islam_bandung.png", width=120)
+    except:
+        st.write("Logo Belum Ada")
+
+with col2:
+    st.markdown("## Analisis Intertemporal Sumber Daya Alam")
+    st.markdown("#### Program Studi Ekonomi Pembangunan - UNISBA")
+
+# Kotak Informasi Anggota & Dosen
+st.info("""
+**KELOMPOK 2 - DATA NIKEL**
+* **Anggota:** Radea Rahman Dwiyana (10090224001), Bunga Wiati Manaki (10090224026), Shidqi Alhamdani Mieftah (10090224032)
+* **Dosen Pengampu:** [Yuhka Sundaya], S.E., M.Si.
+* **Mata Kuliah:** Ekonomi SDA dan Lingkungan
+""")
+st.divider()
 # Judul Utama
 st.set_page_config(page_title="Simulasi PBL 3 - Ekonomi SDA", layout="wide")
 st.title("📊 Simulasi Alokasi Intertemporal & Dinamika Nikel")
