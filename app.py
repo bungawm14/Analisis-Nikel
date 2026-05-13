@@ -9,76 +9,92 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- CUSTOM CSS (Untuk Sentuhan Elegan) ---
+# --- CUSTOM CSS (Optimasi Header Elegan) ---
 st.markdown("""
     <style>
+    .header-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
     .main-title {
-        font-size: 38px !important;
-        font-weight: 700;
-        color: #1E3A8A;
+        font-size: 32px !important;
+        font-weight: 800;
+        color: #1F2937;
         margin-bottom: 0px;
     }
     .sub-title {
-        font-size: 20px !important;
-        color: #4B5563;
-        margin-top: -10px;
-        margin-bottom: 20px;
+        font-size: 18px !important;
+        color: #6B7280;
+        margin-top: 0px;
+        font-weight: 500;
     }
-    .info-card {
-        background-color: #F3F4F6;
-        padding: 20px;
-        border-left: 5px solid #1E3A8A;
-        border-radius: 5px;
-        margin-bottom: 25px;
+    .info-box {
+        background-color: #F8FAFC;
+        padding: 25px;
+        border-left: 6px solid #1E3A8A;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .info-table td {
+        padding: 4px 8px;
+        font-size: 16px;
+        color: #374151;
+        border: none !important;
+    }
+    .label-cell {
+        font-weight: 700;
+        color: #111827;
+        width: 160px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     </style>
     """, unsafe_allow_html=True)
 
 # --- HEADER SECTION ---
-# Menggunakan ratio 1:4 agar logo tidak terlalu dominan tapi tetap jelas
-col_logo, col_text = st.columns([1, 4])
+col_logo, col_text = st.columns([1, 5])
 
 with col_logo:
+    # Mengatur posisi logo agar center secara vertikal
+    st.write("##") 
     try:
-        # Menampilkan logo dengan padding atas agar sejajar dengan teks
-        st.write("") 
-        st.image("Lambang-Universitas_Islam_Bandung.png", width=140)
+        st.image("Lambang-Universitas_Islam_Bandung.png", width=150)
     except:
-        st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=140)
+        st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=150)
 
 with col_text:
     st.markdown('<p class="main-title">Analisis Intertemporal Sumber Daya Alam</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-title">Program Studi Ekonomi Pembangunan - UNISBA</p>', unsafe_allow_html=True)
     
-    # Identitas dalam box yang elegan menggunakan columns di dalam box
-    with st.container():
-        st.markdown("""
-        <div class="info-card">
-            <table style="width:100%; border:none; border-collapse: collapse;">
-                <tr style="border:none;">
-                    <td style="width:15%; font-weight:bold; vertical-align:top; border:none;">KELOMPOK</td>
-                    <td style="border:none;">: 2 - Data Nikel</td>
-                </tr>
-                <tr style="border:none;">
-                    <td style="font-weight:bold; vertical-align:top; border:none;">ANGGOTA</td>
-                    <td style="border:none;">: Radea Rahman Dwiyana, Bunga Wiati Manaki, Shidqi Alhamdani Mieftah</td>
-                </tr>
-                <tr style="border:none;">
-                    <td style="font-weight:bold; vertical-align:top; border:none;">DOSEN</td>
-                    <td style="border:none;">: Yuhka Sundaya, S.E., M.Si.</td>
-                </tr>
-                <tr style="border:none;">
-                    <td style="font-weight:bold; vertical-align:top; border:none;">MATA KULIAH</td>
-                    <td style="border:none;">: Ekonomi SDA dan Lingkungan</td>
-                </tr>
-            </table>
-        </div>
-        """, unsafe_allow_html=True)
+    # BOX IDENTITAS (Mengikuti style image_3c17ed.png)
+    st.markdown(f"""
+    <div class="info-box">
+        <table class="info-table" style="width:100%;">
+            <tr>
+                <td class="label-cell">KELOMPOK</td>
+                <td>: 2 - Data Nikel</td>
+            </tr>
+            <tr>
+                <td class="label-cell">ANGGOTA</td>
+                <td>: Radea Rahman Dwiyana, Bunga Wiati Manaki, Shidqi Alhamdani Mieftah</td>
+            </tr>
+            <tr>
+                <td class="label-cell">DOSEN</td>
+                <td>: Yuhka Sundaya, S.E., M.Si.</td>
+            </tr>
+            <tr>
+                <td class="label-cell">MATA KULIAH</td>
+                <td>: Ekonomi SDA dan Lingkungan</td>
+            </tr>
+        </table>
+    </div>
+    """, unsafe_allow_html=True)
 
-st.divider()
-st.title("📊 Simulasi Alokasi Intertemporal & Dinamika Nikel")
+st.write("---") # Pengganti divider agar lebih clean
 
 # --- BAGIAN 1: MEMBACA DATA ---
+st.title("📊 Simulasi Alokasi Intertemporal & Dinamika Nikel")
 try:
     df_historis = pd.read_csv('data_nikel.csv')
     st.subheader("1. Data Historis Produksi & Harga")
