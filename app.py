@@ -7,9 +7,8 @@ import pandas as pd
 col1, col2 = st.columns([1, 5])
 
 with col1:
-    # Mengambil file logo yang ada di folder yang sama
     try:
-st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=120)
+    st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=120)
     except:
         st.write("Logo Belum Ada")
 
