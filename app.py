@@ -2,34 +2,81 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
-# --- PERBAIKAN 1: CONFIG WAJIB DI BARIS PERTAMA ---
-st.set_page_config(page_title="Simulasi PBL 3 - Ekonomi SDA", layout="wide")
+# --- CONFIG HALAMAN (Wajib di Baris Pertama) ---
+st.set_page_config(
+    page_title="PBL 3 - Ekonomi SDA & Lingkungan",
+    page_icon="📊",
+    layout="wide"
+)
 
-# --- PERBAIKAN 2: HEADER & LOGO (DISAMAKAN DENGAN GITHUB) ---
-col1, col2 = st.columns([1, 5])
+# --- CUSTOM CSS (Untuk Sentuhan Elegan) ---
+st.markdown("""
+    <style>
+    .main-title {
+        font-size: 38px !important;
+        font-weight: 700;
+        color: #1E3A8A;
+        margin-bottom: 0px;
+    }
+    .sub-title {
+        font-size: 20px !important;
+        color: #4B5563;
+        margin-top: -10px;
+        margin-bottom: 20px;
+    }
+    .info-card {
+        background-color: #F3F4F6;
+        padding: 20px;
+        border-left: 5px solid #1E3A8A;
+        border-radius: 5px;
+        margin-bottom: 25px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-with col1:
+# --- HEADER SECTION ---
+# Menggunakan ratio 1:4 agar logo tidak terlalu dominan tapi tetap jelas
+col_logo, col_text = st.columns([1, 4])
+
+with col_logo:
     try:
-        # Nama file disesuaikan dengan image_3c8072.png (pakai strip '-')
-        st.image("Lambang-Universitas_Islam_Bandung.png", width=120)
+        # Menampilkan logo dengan padding atas agar sejajar dengan teks
+        st.write("") 
+        st.image("Lambang-Universitas_Islam_Bandung.png", width=140)
     except:
-        # Cadangan jika file di GitHub tidak terbaca
-        st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=120)
+        st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=140)
 
-with col2:
-    st.markdown("# Analisis Intertemporal Sumber Daya Alam")
-    st.markdown("### Program Studi Ekonomi Pembangunan - UNISBA")
+with col_text:
+    st.markdown('<p class="main-title">Analisis Intertemporal Sumber Daya Alam</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-title">Program Studi Ekonomi Pembangunan - UNISBA</p>', unsafe_allow_html=True)
+    
+    # Identitas dalam box yang elegan menggunakan columns di dalam box
+    with st.container():
+        st.markdown("""
+        <div class="info-card">
+            <table style="width:100%; border:none; border-collapse: collapse;">
+                <tr style="border:none;">
+                    <td style="width:15%; font-weight:bold; vertical-align:top; border:none;">KELOMPOK</td>
+                    <td style="border:none;">: 2 - Data Nikel</td>
+                </tr>
+                <tr style="border:none;">
+                    <td style="font-weight:bold; vertical-align:top; border:none;">ANGGOTA</td>
+                    <td style="border:none;">: Radea Rahman Dwiyana, Bunga Wiati Manaki, Shidqi Alhamdani Mieftah</td>
+                </tr>
+                <tr style="border:none;">
+                    <td style="font-weight:bold; vertical-align:top; border:none;">DOSEN</td>
+                    <td style="border:none;">: Yuhka Sundaya, S.E., M.Si.</td>
+                </tr>
+                <tr style="border:none;">
+                    <td style="font-weight:bold; vertical-align:top; border:none;">MATA KULIAH</td>
+                    <td style="border:none;">: Ekonomi SDA dan Lingkungan</td>
+                </tr>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
 
-# --- PERBAIKAN 3: BOX IDENTITAS KELOMPOK ---
-st.info("""
-**KELOMPOK 2 - DATA NIKEL**
-* **Anggota:** Radea Rahman Dwiyana (10090224001), Bunga Wiati Manaki (10090224026), Shidqi Alhamdani Mieftah (10090224032)
-* **Dosen Pengampu:** Yuhka Sundaya, S.E., M.Si.
-* **Mata Kuliah:** Ekonomi SDA dan Lingkungan
-""")
-
-st.title("📊 Simulasi Alokasi Intertemporal & Dinamika Nikel")
 st.divider()
+st.title("📊 Simulasi Alokasi Intertemporal & Dinamika Nikel")
 
 # --- BAGIAN 1: MEMBACA DATA ---
 try:
@@ -42,9 +89,10 @@ except Exception as e:
 # --- BAGIAN 2: PARAMETER (SIDEBAR) ---
 with st.sidebar:
     st.header("⚙️ Kontrol Simulasi")
-    a = st.number_input("Intersep Permintaan (a)", value=1090000000.0)
-    b = st.number_input("Slope Permintaan (b)", value=12.31475)
-    mc = st.number_input("Marginal Cost (MC)", value=143804.5653)
+    st.markdown("---")
+    a = st.number_input("Intersep Permintaan (a)", value=1090000000.0, format="%.2f")
+    b = st.number_input("Slope Permintaan (b)", value=12.31, format="%.2f")
+    mc = st.number_input("Marginal Cost (MC)", value=143804.57, format="%.2f")
     r = st.slider("Tingkat Diskonto (r)", 0.01, 0.20, 0.05)
     stok_awal = st.number_input("Total Cadangan (S)", value=20000.0)
     lambda_0 = st.number_input("MUC Awal (λ0)", value=15163.0)
@@ -61,16 +109,31 @@ def jalankan_simulasi(struktur):
         q_t = max(0, q_t)
         produksi = min(q_t, stok_sisa)
         stok_sisa -= produksi
-        hasil.append({"Tahun": t, "MUC": round(muc_t, 2), "Produksi": round(produksi, 2), "Sisa Stok": round(stok_sisa, 2)})
+        hasil.append({
+            "Tahun": t, 
+            "MUC": round(muc_t, 2), 
+            "Produksi": round(produksi, 2), 
+            "Sisa Stok": round(stok_sisa, 2)
+        })
     return pd.DataFrame(hasil)
 
 # --- BAGIAN 4: OUTPUT ---
 st.subheader("2. Hasil Simulasi Per Struktur Pasar")
-tab1, tab2, tab3 = st.tabs(["Persaingan Sempurna", "Monopoli", "Oligopoli"])
-with tab1: st.table(jalankan_simulasi("Persaingan"))
-with tab2: st.table(jalankan_simulasi("Monopoli"))
-with tab3: st.table(jalankan_simulasi("Oligopoli"))
+tab1, tab2, tab3 = st.tabs(["🏛️ Persaingan Sempurna", "🏢 Monopoli", "🏪 Oligopoli"])
+
+with tab1:
+    st.table(jalankan_simulasi("Persaingan"))
+
+with tab2:
+    st.table(jalankan_simulasi("Monopoli"))
+
+with tab3:
+    st.table(jalankan_simulasi("Oligopoli"))
 
 st.divider()
-st.subheader("3. Analisis Green Paradox")
-st.warning(f"Saat ini r = {r*100:.0f}%. Jika r naik, cadangan habis lebih cepat (Green Paradox).")
+st.subheader("3. Analisis Ekonomi")
+col_a, col_b = st.columns(2)
+with col_a:
+    st.info(f"**Tingkat Diskonto (r): {r*100:.0f}%**")
+with col_b:
+    st.warning(f"**Fenomena Green Paradox:** Dengan r sebesar {r*100:.0f}%, produsen cenderung mempercepat ekstraksi hari ini karena nilai uang di masa depan menyusut lebih cepat.")
