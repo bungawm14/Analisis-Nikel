@@ -20,8 +20,8 @@ with col2:
 # Kotak Informasi Anggota & Dosen
 st.info("""
 **KELOMPOK 2 - DATA NIKEL**
-* **Anggota:** Shidqi Alhamdani Mieftah (NIM), Nama Anggota 2 (NIM), Nama Anggota 3 (NIM)
-* **Dosen Pengampu:** [Nama Dosen Pengampu], S.E., M.Si.
+* **Anggota:** Radea Rahman Dwiyana (10090224001), Bunga Wiati Manaki (10090224026), Shidqi Alhamdani Mieftah (10090224032)
+* **Dosen Pengampu:** Yuhka Sundaya, S.E., M.Si.
 * **Mata Kuliah:** Ekonomi SDA dan Lingkungan
 """)
 st.divider()
