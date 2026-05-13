@@ -10,7 +10,10 @@ with col1:
     # PERHATIKAN SPASI DI DEPAN 'try' DAN 'st.image'
     try:
         # Mencari file logo di folder yang sama dengan app.py
-        st.image("logo_universitas_islam_bandung.png", width=120)
+        st.image("Logo_Universitas_Islam_Bandung.png", width=120)
+        except:
+        # Wajib ada blok ini agar tidak SyntaxError
+        st.write("Logo Belum Ada")
 
 with col2:
     st.markdown("## Analisis Intertemporal Sumber Daya Alam")
