@@ -64,10 +64,10 @@ with col_logo:
         st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=150)
 
 with col_text:
-    st.markdown('<p class="main-title">Analisis Intertemporal Sumber Daya Alam</p>', unsafe_allow_html=True)
+   st.markdown('<p class="main-title">Analisis Intertemporal Sumber Daya Alam</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-title">Program Studi Ekonomi Pembangunan - UNISBA</p>', unsafe_allow_html=True)
     
-    # BOX IDENTITAS (Mengikuti style image_3c17ed.png)
+    # BOX IDENTITAS (Versi Rapi Per Poin + NPM)
     st.markdown(f"""
     <div class="info-box">
         <table class="info-table" style="width:100%;">
@@ -76,8 +76,14 @@ with col_text:
                 <td>: 2 - Data Nikel</td>
             </tr>
             <tr>
-                <td class="label-cell">ANGGOTA</td>
-                <td>: Radea Rahman Dwiyana, Bunga Wiati Manaki, Shidqi Alhamdani Mieftah</td>
+                <td class="label-cell" style="vertical-align: top;">ANGGOTA</td>
+                <td style="padding-top: 0px;">
+                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                        <li>: 1. Radea Rahman Dwiyana (10090224001)</li>
+                        <li>&nbsp;&nbsp; 2. Bunga Wiati Manaki (10090224026)</li>
+                        <li>&nbsp;&nbsp; 3. Shidqi Alhamdani Mieftah (10090224032)</li>
+                    </ul>
+                </td>
             </tr>
             <tr>
                 <td class="label-cell">DOSEN</td>
