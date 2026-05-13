@@ -66,13 +66,13 @@ with col_text:
     st.markdown('<p class="main-title">Analisis Intertemporal Sumber Daya Alam</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-title">Program Studi Ekonomi Pembangunan - UNISBA</p>', unsafe_allow_html=True)
     
-    # BOX IDENTITAS (Perbaikan Indentasi & Anggota Per Poin)
+    # BOX IDENTITAS (Tulisan 'Data Nikel' Dihapus)
     st.markdown(f"""
     <div class="info-box">
         <table class="info-table" style="width:100%;">
             <tr>
                 <td class="label-cell">KELOMPOK</td>
-                <td>: 2 - Data Nikel</td>
+                <td>: 2</td>
             </tr>
             <tr>
                 <td class="label-cell" style="vertical-align: top;">ANGGOTA</td>
@@ -111,7 +111,7 @@ except Exception as e:
 with st.sidebar:
     st.header("⚙️ Kontrol Simulasi")
     st.markdown("---")
-    # Menggunakan nilai sesuai laporan praktikum Anda agar T* = 10 [cite: 159, 160, 165]
+    # Parameter disesuaikan dengan laporan [cite: 159, 160, 165]
     a = st.number_input("Intersep Permintaan (a)", value=86500000.0, format="%.1f")
     b = st.number_input("Slope Permintaan (b)", value=0.0702729, format="%.7f")
     mc = st.number_input("Marginal Cost (MC)", value=176566741.2, format="%.1f")
@@ -122,15 +122,12 @@ with st.sidebar:
 # --- BAGIAN 3: LOGIKA SIMULASI ---
 def jalankan_simulasi(struktur):
     tahun_sim = np.arange(0, 11)
-    # Penyesuaian slope berdasarkan struktur pasar
     slope_eff = b * 2 if struktur == "Monopoli" else (b * 1.5 if struktur == "Oligopoli" else b)
     hasil = []
     stok_sisa = stok_awal
     for t in tahun_sim:
         muc_t = lambda_0 * np.exp(r * t) # Aturan Hotelling [cite: 167, 172]
-        # Transformasi balik dari Q = a - bP ke fungsi ekstraksi
-        # Untuk simulasi ini, kita gunakan pendekatan ekstraksi optimal
-        q_t = (a - (mc/1000000) - (muc_t/1000000)) / (slope_eff * 100) # Penyesuaian skala untuk simulasi
+        q_t = (a - (mc/1000000) - (muc_t/1000000)) / (slope_eff * 100) 
         q_t = max(0, q_t)
         produksi = min(q_t, stok_sisa)
         stok_sisa -= produksi
@@ -163,4 +160,4 @@ with col_a:
     st.write("Tingkat diskonto 5% mencerminkan keseimbangan antar generasi[cite: 169].")
 with col_b:
     st.warning(f"**Fenomena Green Paradox:**")
-    st.write(f"Dengan r sebesar {r*100:.0f}%, kenaikan r akan mempercepat ekstraksi (eksploitasi) dan menurunkan nilai T*[cite: 178, 180].")
+    st.write(f"Dengan r sebesar {r*100:.0f}%, kenaikan r akan mempercepat eksploitasi dan menurunkan nilai T*[cite: 178, 180].")
