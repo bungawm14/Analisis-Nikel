@@ -7,12 +7,11 @@ import pandas as pd
 col1, col2 = st.columns([1, 5])
 
 with col1:
-    # PERHATIKAN SPASI DI DEPAN 'try' DAN 'st.image'
     try:
-        # Mencari file logo di folder yang sama dengan app.py
+        # Menjorok 4 spasi (1 Tab) dari 'with'
         st.image("Logo_Universitas_Islam_Bandung.png", width=120)
-        except:
-        # Wajib ada blok ini agar tidak SyntaxError
+    except:
+        # Sejajar lurus dengan 'try'
         st.write("Logo Belum Ada")
 
 with col2:
