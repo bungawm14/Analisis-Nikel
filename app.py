@@ -7,7 +7,10 @@ import pandas as pd
 col1, col2 = st.columns([1, 5])
 
 with col1:
-    st.image("https://upload.wikimedia.org/wikipedia/id/2/23/Lambang_Unisba.png", width=120)
+    # PERHATIKAN SPASI DI DEPAN 'try' DAN 'st.image'
+    try:
+        # Mencari file logo di folder yang sama dengan app.py
+        st.image("logo_universitas_islam_bandung.png", width=120)
 
 with col2:
     st.markdown("## Analisis Intertemporal Sumber Daya Alam")
